@@ -1,0 +1,25 @@
+{
+  "name": "basic-web-server",
+  "version": "1.0.0",
+  "description": "Class Project for NSS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "startemon": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJPcodes/basic-web-server.git"
+  },
+  "author": "Allen Phelps (https://ajpcodes.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AJPcodes/basic-web-server/issues"
+  },
+  "homepage": "https://github.com/AJPcodes/basic-web-server#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "node-cal": "github:ajpcodes/node-cal"
+  }
+}
