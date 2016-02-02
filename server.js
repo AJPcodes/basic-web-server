@@ -43,7 +43,7 @@ app.get('/cal/:year?/:month?/', (req, res) => {
   }
 
   else {
-    res.send("Invalid parameters, Try again");
+    res.send("Invalid parameters: <br> Try again useing cal/YYYY/MM");
   }
 });
 
