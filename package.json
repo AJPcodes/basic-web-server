@@ -20,6 +20,7 @@
   "homepage": "https://github.com/AJPcodes/basic-web-server#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "jade": "^1.11.0",
     "node-cal": "github:ajpcodes/node-cal"
   }
 }

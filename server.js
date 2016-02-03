@@ -3,6 +3,16 @@
 const app = require('express')();
 const PORT = process.env.PORT || 3000;
 
+app.set('view engine', 'jade');
+
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Appity Appy App',
+    date: new Date()
+
+  });
+});
+
 app.get('/cal/:year?/:month?/', (req, res) => {
 
   let yearArg = req.params.year;
@@ -30,7 +40,7 @@ app.get('/cal/:year?/:month?/', (req, res) => {
       monthArg = validatedArgs[1];
 
 
-
+ 
     if (yearArg && monthArg) {
       let output = getMonth(yearArg, monthArg);
       res.send("<pre>" + output + "</pre>");
