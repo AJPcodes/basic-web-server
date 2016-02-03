@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "startemon": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "bower": "bower install"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/AJPcodes/basic-web-server#readme",
   "dependencies": {
+    "bower": "^1.7.7",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "node-cal": "github:ajpcodes/node-cal",
