@@ -1,10 +1,25 @@
 //raw node server!
 "use strict";
-const app = require('express')();
+const express = require('express');
+const sassMiddleware = require('node-sass-middleware');
+const path = require('path');
 const getCal = require('./lib/cal.js');
 const PORT = process.env.PORT || 3000;
 
+const app = express();
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+//sass setup
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: true,
+  sourceMap: true
+}));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.render('index', {
