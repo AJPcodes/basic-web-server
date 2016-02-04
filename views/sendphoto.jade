@@ -1,10 +1,6 @@
 doctype html
 html
-  head
-    title= title
-    link(href='https://fonts.googleapis.com/css?family=Pacifico|Righteous' rel='stylesheet' type='text/css')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
-    link(rel='stylesheet', href='./stylesheets/styles.css')
+  include ./includes/head.jade
   body
     div#main
       h1#title
@@ -19,5 +15,4 @@ html
           input(type='submit', placeholder='Upload')
 
 
-    script(src='./vender/jquery/dist/jquery.min.js')
-    script(src='/scripts/client.js')
+    include ./includes/scripts.jade
