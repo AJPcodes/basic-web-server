@@ -33,6 +33,7 @@ app.get('/cal/:year?/:month?/', (req, res) => {
   const output = getCal(req.params.year,req.params.month);
 
   res.render('calDisplay', {
+    title: 'C (Allen) Dar',
     calString: output
   });
 });

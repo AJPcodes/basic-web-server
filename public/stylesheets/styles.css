@@ -27,6 +27,19 @@ div#main {
     font-size: 10em;
     margin: 0; }
 
+div#datePicker label {
+  display: inline-block;
+  margin: 10px;
+  width: 100px; }
+
+div#datePicker input {
+  width: 4em;
+  margin: 10px; }
+
+div#datePicker p#dateSubmit:hover {
+  color: black;
+  text-shadow: 1px 1px 2px white; }
+
 .spin:hover {
   transition: transform 2s; }
 
