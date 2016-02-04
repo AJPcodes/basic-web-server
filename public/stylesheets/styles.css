@@ -1,4 +1,36 @@
-h1 {
-  color: blue; }
+html {
+  background-color: black;
+  font-family: Righteous, Sans-serif; }
+
+body {
+  background-image: url("../images/world.jpg");
+  background-repeat: no-repeat;
+  background-position: fill;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  box-shadow: 2px 2px 4px white;
+  height: 200%; }
+
+h1#title {
+  margin: 0.5em auto;
+  text-align: center;
+  font-size: 3em; }
+
+div#main {
+  background-color: rgba(255, 255, 255, 0.1);
+  text-align: center;
+  padding: 5% 5%;
+  margin: 5% 5%; }
+  div#main p {
+    font-size: 2em; }
+  div#main .massive {
+    font-size: 10em;
+    margin: 0; }
+
+.spin:hover {
+  transition: transform 2s; }
+
+.spin:hover {
+  transform: rotateY(720deg); }
 
 /*# sourceMappingURL=styles.css.map */

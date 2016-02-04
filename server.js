@@ -23,16 +23,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Appity Appy App',
+    title: 'C (Allen) Dar',
     date: new Date()
 
   });
 });
 
 app.get('/cal/:year?/:month?/', (req, res) => {
+  const output = getCal(req.params.year,req.params.month);
 
-  res.send(getCal(req.params.year,req.params.month ));
-
+  res.render('calDisplay', {
+    calString: output
+  });
 });
 
 app.get("/hello", (req, res) => {
