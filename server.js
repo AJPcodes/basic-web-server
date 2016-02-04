@@ -6,7 +6,7 @@ const path = require('path');
 const getCal = require('./lib/cal.js');
 const PORT = process.env.PORT || 3000;
 //used to add a 'body' key to post req objects with form data
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 //used to handle multi-posts (file uploads)
 const multer = require('multer');
 const upload = multer({dest: 'tmp/uploads/'});
@@ -22,7 +22,7 @@ app.set('view engine', 'jade');
 //The object will be passed to every render
 app.locals.title = "C (Allen) Dar";
 
-app.use(bodyParser.urlencoded({ extended: false}));
+// app.use(bodyParser.urlencoded({ extended: false}));
 
 //sass setup
 app.use(sassMiddleware({
@@ -49,8 +49,9 @@ app.get('/contact', (req, res) => {
   });
 });
 
-app.post('/contact', (req, res) => {
-  let userName = req.body.name;;
+app.post('/contact', upload.array(), (req, res) => {
+  let userName = req.body.name;
+  console.log(req.body);
   res.send(`<h1>Thanks ${userName}</h1>`)
 });
 
