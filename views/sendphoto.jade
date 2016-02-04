@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title= title
+    link(href='https://fonts.googleapis.com/css?family=Pacifico|Righteous' rel='stylesheet' type='text/css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='./stylesheets/styles.css')
+  body
+    div#main
+      h1#title
+      h2 Send us a photo!
+
+      form(method='POST', enctype='multipart/form-data')
+        .form-group
+          label Name
+          input(type='file', accept='image/\*',placeholder='Name', name='image')
+        .form-group
+          label Upload
+          input(type='submit', placeholder='Upload')
+
+
+    script(src='./vender/jquery/dist/jquery.min.js')
+    script(src='/scripts/client.js')

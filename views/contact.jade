@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= title
+    link(href='https://fonts.googleapis.com/css?family=Pacifico|Righteous' rel='stylesheet' type='text/css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='./stylesheets/styles.css')
+  body
+    div#main
+      h1#title
+      h2 Contact
+
+      form(method='POST')
+        .form-group
+          label Name
+          input(type='text', placeholder='Name', name='name')
+        .form-group
+          label Email
+          input(type='email', placeholder='Email', name='email')
+        .form-group
+          label Message
+          input(type='textarea', placeholder='Message', name='message')
+        .form-group
+          label Submit
+          input(type='submit', placeholder='Contact Us!')
+
+
+      p.
+        You can try it out in your shell by cloning the <a target='blank' href="https://github.com/AJPcodes/node-cal"> repo <i class="fa fa-github-square"></i></a>. <br>
+        Or you can test it <a href="/cal">here.</a>
+
+
+    script(src='./vender/jquery/dist/jquery.min.js')
+    script(src='/scripts/client.js')

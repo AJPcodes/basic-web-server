@@ -34,3 +34,7 @@ node_modules
 
 #bower
 public/vender
+
+#file uploads
+tmp
+toDo.txt
