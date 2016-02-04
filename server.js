@@ -1,6 +1,8 @@
 //raw node server!
 "use strict";
+const fs = require('fs');
 const express = require('express');
+const imgur = require('imgur');
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
 const getCal = require('./lib/cal.js');
@@ -8,10 +10,23 @@ const PORT = process.env.PORT || 3000;
 //used to add a 'body' key to post req objects with form data
 // const bodyParser = require('body-parser');
 //used to handle multi-posts (file uploads)
-const multer = require('multer');
-const upload = multer({dest: 'tmp/uploads/'});
 
 const app = express();
+const multer = require('multer');
+
+//setup multer storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '/tmp/uploads'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + "." + file.mimetype.split("/")[1])
+  }
+})
+
+var upload = multer({ storage: storage })
+// uncomment to setup multer without file-rename/extensions
+// var upload = multer({ dest: 'tmp/uploads' })
 
 const appTitle = 'C Allen Dar'
 // view engine setup
@@ -23,6 +38,8 @@ app.set('view engine', 'jade');
 app.locals.title = "C (Allen) Dar";
 
 // app.use(bodyParser.urlencoded({ extended: false}));
+
+
 
 //sass setup
 app.use(sassMiddleware({
@@ -63,7 +80,25 @@ app.get('/sendphoto', (req, res) => {
 });
 
 app.post('/sendphoto', upload.single('image'), (req, res) => {
-    res.send('<h1>Thanks for the Photo</h1>')
+
+    let filename = req.file.filename;
+    let filepath = path.join(__dirname, 'tmp', 'uploads', filename);
+    let link = "";
+
+    if (req.file) {
+      imgur.uploadFile(filepath)
+      .then(function (json) {
+          link = json.data.link;
+          res.send(`<h1>Thanks for the Photo</h1><img src="${link}">`)
+          //delete the uploaded file from local storage
+          // fs.unlinkSync(filepath);
+
+      })
+      .catch(function (err) {
+          console.error(err.message);
+      });
+    }
+
 });
 
 //playing with query params
