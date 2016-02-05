@@ -84,32 +84,9 @@ app.get('/api/weather', (req, res) => {
 });
 
 app.get('/api/news', (req, res) => {
-  const url = 'http://www.cnn.com/';
-  request.get(url, (err, urlRes, body) =>  {
-    if (err) throw err;
 
-  const $ = cheerio.load(urlRes.body);
+  require('./lib/news.js')(res);
 
-  let news = [];
-
-  for (let i=0; i<12; i++) {
-
-    let linkUrl = $($('.cd__headline a')[i]).attr('href');
-
-    if (linkUrl.split("")[0] === "/") {
-      linkUrl = "http://www.cnn.com" + linkUrl;
-    }
-
-    console.log($('.cd__headline a span.cd__headline-text')[i].children[0].data);
-    let article = {
-      title: $('.cd__headline a span.cd__headline-text')[i].children[0].data,
-      url: linkUrl
-    }
-    news.push(article);
-  }
-
-  res.send(news);
-  });
 });
 
 //regular form using body parser
