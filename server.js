@@ -1,14 +1,17 @@
 //raw node server!
 "use strict";
+const _ = require('lodash');
+const cheerio = require('cheerio');
 const fs = require('fs');
 const express = require('express');
 const imgur = require('imgur');
+const request = require('request');
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
 const getCal = require('./lib/cal.js');
 const PORT = process.env.PORT || 3000;
 //used to add a 'body' key to post req objects with form data
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 //used to handle multi-posts (file uploads)
 
 const app = express();
@@ -37,7 +40,9 @@ app.set('view engine', 'jade');
 //The object will be passed to every render
 app.locals.title = "C (Allen) Dar";
 
-// app.use(bodyParser.urlencoded({ extended: false}));
+//app middleare for all post request (hits all routes)
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
 
 
@@ -58,6 +63,54 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/api', (req, res) => {
+  // res.header('Access-Control-Allow-Origin', '*');
+  res.send({'hello': 'world'});
+});
+
+//example of recieving JSON as a post request
+app.post('/api', (req, res) => {
+  let output = _.mapValues(req.body, (val) => val.toUpperCase())
+  res.send(output);
+});
+
+app.get('/api/weather', (req, res) => {
+  const url = 'https://api.forecast.io/forecast/0fb98484d16d29ca7f11edb292c8f77c/37.8267,-122.423';
+  request.get(url, (err, apiRes, body) =>  {
+    if (err) throw err;
+    res.header('Access-Control-Allow-Origin', '*');
+    res.send(JSON.parse(body));
+  });
+});
+
+app.get('/api/news', (req, res) => {
+  const url = 'http://www.cnn.com/';
+  request.get(url, (err, urlRes, body) =>  {
+    if (err) throw err;
+
+  const $ = cheerio.load(urlRes.body);
+
+  let news = [];
+
+  for (let i=0; i<12; i++) {
+
+    let linkUrl = $($('.cd__headline a')[i]).attr('href');
+
+    if (linkUrl.split("")[0] === "/") {
+      linkUrl = "http://www.cnn.com" + linkUrl;
+    }
+
+    console.log($('.cd__headline a span.cd__headline-text')[i].children[0].data);
+    let article = {
+      title: $('.cd__headline a span.cd__headline-text')[i].children[0].data,
+      url: linkUrl
+    }
+    news.push(article);
+  }
+
+  res.send(news);
+  });
+});
 
 //regular form using body parser
 app.get('/contact', (req, res) => {
@@ -91,7 +144,7 @@ app.post('/sendphoto', upload.single('image'), (req, res) => {
           link = json.data.link;
           res.send(`<h1>Thanks for the Photo</h1><img src="${link}">`)
           //delete the uploaded file from local storage
-          // fs.unlinkSync(filepath);
+          fs.unlinkSync(filepath);
 
       })
       .catch(function (err) {
