@@ -84,9 +84,11 @@ app.get('/api/weather', (req, res) => {
 });
 
 app.get('/api/news', (req, res) => {
-
   require('./lib/news.js')(res);
+});
 
+app.get('/reddit', (req, res) => {
+  require('./lib/redditRoll.js')(res);
 });
 
 //regular form using body parser
