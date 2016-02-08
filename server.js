@@ -1,7 +1,6 @@
 //raw node server!
 "use strict";
 const _ = require('lodash');
-const cheerio = require('cheerio');
 const fs = require('fs');
 const express = require('express');
 const imgur = require('imgur');
@@ -31,7 +30,6 @@ var upload = multer({ storage: storage })
 // uncomment to setup multer without file-rename/extensions
 // var upload = multer({ dest: 'tmp/uploads' })
 
-const appTitle = 'C Allen Dar'
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -159,11 +157,6 @@ app.get("/hello", (req, res) => {
       counter.push(i);
     });
 
-    var interval = setInterval(function(){
-      if (counter.length === 0) {
-      res.end('<p>Done<p>');
-      }
-    }, 250);
 });
 
 app.get("/random/:x/:y", (req, res) => {

@@ -30,5 +30,20 @@
     "node-cal": "github:ajpcodes/node-cal",
     "node-sass-middleware": "^0.9.7",
     "request": "^2.69.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "mocha": true,
+      "node": true,
+      "es6": true,
+      "jquery": true,
+      "browser": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-console": 0,
+      "eqeqeq": 1,
+      "no-loop-func": 1
+    }
   }
 }
