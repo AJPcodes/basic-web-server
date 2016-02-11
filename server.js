@@ -1,5 +1,6 @@
 //raw node server!
 "use strict";
+const MongoClient = require('mongodb').MongoClient;
 const _ = require('lodash');
 const fs = require('fs');
 const express = require('express');
@@ -8,9 +9,14 @@ const request = require('request');
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
 const getCal = require('./lib/cal.js');
-const PORT = process.env.PORT || 3000;
 //used to add a 'body' key to post req objects with form data
 const bodyParser = require('body-parser');
+
+const PORT = process.env.PORT || 3000;
+
+//mongoDB url (in this case local) and the name of the project
+const MONGODB_URL = 'mongodb://localhost:27017/mainFrame';
+let db;
 //used to handle multi-posts (file uploads)
 
 const app = express();
@@ -67,9 +73,14 @@ app.get('/api', (req, res) => {
 });
 
 //example of recieving JSON as a post request
+//use postman to test this
 app.post('/api', (req, res) => {
-  let output = _.mapValues(req.body, (val) => val.toUpperCase())
-  res.send(output);
+  let output = _.mapValues(req.body, (val) => val.toUpperCase());
+
+  db.collection('allCaps').insertOne(output, (err, result) => {
+    if (err) throw err;
+    res.send(output);
+  });
 });
 
 app.get('/api/weather', (req, res) => {
@@ -82,7 +93,7 @@ app.get('/api/weather', (req, res) => {
 });
 
 app.get('/api/news', (req, res) => {
-  require('./lib/news.js')(res);
+  require('./lib/news.js')(db, res);
 });
 
 app.get('/reddit', (req, res) => {
@@ -172,6 +183,13 @@ app.get('/secret', (req, res) => {
   res.end('Access Denied');
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+MongoClient.connect(MONGODB_URL, (err, database) => {
+  if (err) throw err;
+  db = database;
+
+  app.listen(PORT, () => {
+    console.log(`Node.js server started. Listening on port ${PORT}`);
+  });
+
 });
+
