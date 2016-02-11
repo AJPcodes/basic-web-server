@@ -61,9 +61,12 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.render('index', {
-    date: new Date()
 
+  require('./lib/news.js')(db, (data) => {
+    res.render('index', {
+     date: new Date(),
+      topStory: data[0]
+    });
   });
 });
 
@@ -93,7 +96,7 @@ app.get('/api/weather', (req, res) => {
 });
 
 app.get('/api/news', (req, res) => {
-  require('./lib/news.js')(db, res);
+  require('./lib/news.js')(db, (data) => {res.send(data)});
 });
 
 app.get('/reddit', (req, res) => {
@@ -108,9 +111,7 @@ app.get('/contact', (req, res) => {
 });
 
 app.post('/contact', upload.array(), (req, res) => {
-  let userName = req.body.name;
-  console.log(req.body);
-  res.send(`<h1>Thanks ${userName}</h1>`)
+   require('./lib/contact.js')(db, req.body, res);
 });
 
 //file upload form using multer
@@ -130,9 +131,13 @@ app.post('/sendphoto', upload.single('image'), (req, res) => {
       imgur.uploadFile(filepath)
       .then(function (json) {
           link = json.data.link;
-          res.send(`<h1>Thanks for the Photo</h1><img src="${link}">`)
+
+          db.collection('images').insertOne({ imgurl: link }, (err, result) => {
+            if (err) throw err;
+            res.send(`<h1>Thanks for the Photo</h1><img src="${link}">`)
+            fs.unlinkSync(filepath);
+          });
           //delete the uploaded file from local storage
-          fs.unlinkSync(filepath);
 
       })
       .catch(function (err) {
