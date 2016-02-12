@@ -45,7 +45,8 @@
       "no-console": 0,
       "eqeqeq": 1,
       "no-loop-func": 1,
-      "no-unused-vars": 0
+      "no-unused-vars": 0,
+      "no-undef": 0
     }
   }
 }
