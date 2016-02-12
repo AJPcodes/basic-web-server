@@ -1,6 +1,7 @@
 //raw node server!
 "use strict";
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
+
 const _ = require('lodash');
 const fs = require('fs');
 const express = require('express');
@@ -11,12 +12,14 @@ const path = require('path');
 const getCal = require('./lib/cal.js');
 //used to add a 'body' key to post req objects with form data
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
 
 //mongoDB url (in this case local) and the name of the project
 const MONGODB_URL = 'mongodb://localhost:27017/mainFrame';
-let db;
+mongoose.connect(MONGODB_URL);
+let db = mongoose.connection;
 //used to handle multi-posts (file uploads)
 
 const app = express();
@@ -111,7 +114,7 @@ app.get('/contact', (req, res) => {
 });
 
 app.post('/contact', upload.array(), (req, res) => {
-   require('./lib/contact.js')(db, req.body, res);
+   require('./lib/contact.js')(req.body, res);
 });
 
 //file upload form using multer
@@ -188,9 +191,12 @@ app.get('/secret', (req, res) => {
   res.end('Access Denied');
 });
 
-MongoClient.connect(MONGODB_URL, (err, database) => {
-  if (err) throw err;
-  db = database;
+db.once('open', () => {
+
+  console.log('Mongo Open');
+
+  //if (err) throw err;
+  //db = database;
 
   app.listen(PORT, () => {
     console.log(`Node.js server started. Listening on port ${PORT}`);
