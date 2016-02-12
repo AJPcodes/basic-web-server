@@ -10,7 +10,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
-const routes = require('./routes/routes.js')
+const routes = require('./routes/routes.js');
+const api = require('./routes/api.js');
+const photos = require('./routes/photos.js');
 
 //mongoDB url (in this case local) and the name of the project
 const MONGODB_URL = 'mongodb://localhost:27017/mainFrame';
@@ -36,6 +38,8 @@ app.locals.title = "C (Allen) Dar";
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(routes);
+app.use(api);
+app.use(photos);
 
 
 
