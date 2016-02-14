@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 module.exports = function(body, res) {
 
-  console.log('trying to save contact info');
+  // console.log('trying to save contact info');
 
   const Contact = require('../models/contact');
 
