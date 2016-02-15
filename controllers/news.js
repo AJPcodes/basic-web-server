@@ -46,8 +46,8 @@ const getNews = function(callback) {
           // console.log('headline', $headline);
           // console.log('links:', $headline.find('a'));
           let linkUrl = $headline.find('a').attr('href');
-          console.log($headline.text());
-          console.log(linkUrl);
+          // console.log($headline.text());
+          // console.log(linkUrl);
           if (linkUrl && linkUrl.split("")[0] === "/") {
             linkUrl = "http://www.cnn.com" + linkUrl;
           }

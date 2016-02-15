@@ -18,9 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get('/contact', (req, res) => {
-  res.render('contact', {
-    date: new Date()
-  });
+  res.render('contact');
 });
 
 router.post('/contact', upload.array(), (req, res) => {
