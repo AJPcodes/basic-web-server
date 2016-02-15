@@ -1,0 +1,22 @@
+{
+  "name": "basic-web-server",
+  "description": "Class Project for NSS",
+  "main": "server.js",
+  "authors": [
+    "Allen Phelps (https://ajpcodes.github.io/)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AJPcodes/basic-web-server",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vender",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.0"
+  }
+}
