@@ -11,8 +11,8 @@ const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
 //environmental variables (declared on heroku)
-const MONGODB_HOST = process.env.MONGODB_HOST || localhost;
-const MONGODB_PORT = process.env.MONGODB_PORT || 27017;
+const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
+const MONGODB_PORT = process.env.MONGODB_PORT || '27017';
 const MONGODB_USER = process.env.MONGODB_USER || '';
 const MONGODB_PASS = process.env.MONGODB_PASS || '';
 const MONGODB_NAME = process.env.MONGODB_NAME || 'mainFrame';
@@ -66,10 +66,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 db.once('open', () => {
 
-  console.log('Mongo Open');
+  // console.log('Mongo Open');
 
-  //if (err) throw err;
-  //db = database;
+  // if (err) throw err;
+  // db = database;
 
   app.listen(PORT, () => {
     console.log(`Node.js server started. Listening on port ${PORT}`);
