@@ -18,11 +18,11 @@ const MONGODB_PASS = process.env.MONGODB_PASS || '';
 const MONGODB_NAME = process.env.MONGODB_NAME || 'mainFrame';
 const MONGODB_URL_PREFIX = MONGODB_USER
   ? `${MONGODB_USER}:${MONGODB_PASS}@`
-  : '';
+  : ''
 
 
 //mongodb://<dbuser>:<dbpassword>@ds035485.mongolab.com:35485/basic-node-server
-const MONGODB_URL = `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
+const MONGODB_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
 console.log('MONGODB_URL', MONGODB_URL);
 const routes = require('./routes/');
 
