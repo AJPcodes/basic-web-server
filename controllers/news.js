@@ -8,16 +8,22 @@ const News = require('../models/news');
 
 const getNews = function(callback) {
 
+    console.log('getting news!');
   News.findOne().sort('-_id').exec((err, doc) => {
     if (err) throw err;
     const FifteenMin = 15 * 60 * 1000;
 
+    console.log(doc);
+    let diff;
+
     if (doc) {
     const diff = (new Date() - doc._id.getTimestamp()) - FifteenMin;
-      if (diff < 0) {
+    }
+    if (diff && diff < 0) {
+        console.log('this news is fine!');
        callback(doc.top);
-      }
     } else {
+
       const url = 'http://cnn.com';
 
       request.get(url, (err, response, html) => {
