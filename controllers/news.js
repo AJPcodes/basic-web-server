@@ -11,13 +11,12 @@ const getNews = function(callback) {
   News.findOne().sort('-_id').exec((err, doc) => {
     if (err) throw err;
     const FifteenMin = 15 * 60 * 1000;
-    if (doc) {
-    // console.log(doc._id.getTimestamp());
-    const diff = (new Date() - doc._id.getTimestamp()) - FifteenMin;
-    }
 
-    if (doc && diff < 0) {
-      callback(doc.top);
+    if (doc) {
+    const diff = (new Date() - doc._id.getTimestamp()) - FifteenMin;
+      if (diff < 0) {
+       callback(doc.top);
+      }
     } else {
       const url = 'http://cnn.com';
 
