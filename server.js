@@ -10,11 +10,23 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3000;
+//environmental variables (declared on heroku)
+const MONGODB_HOST = process.env.MONGODB_HOST || localhost;
+const MONGODB_PORT = process.env.MONGODB_PORT || 27017;
+const MONGODB_USER = process.env.MONGODB_USER || '';
+const MONGODB_PASS = process.env.MONGODB_PASS || '';
+const MONGODB_NAME = process.env.MONGODB_NAME || 'mainFrame';
+const MONGODB_URL_PREFIX = MONGODB_USER
+  ? `${MONGODB_USER}:${MONGODB_PASS}@`
+  : '';
+
+const MONGODB_URL = `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
+
 const routes = require('./routes/');
 
 
-//mongoDB url (in this case local) and the name of the project
-const MONGODB_URL = 'mongodb://localhost:27017/mainFrame';
+
+
 mongoose.connect(MONGODB_URL);
 let db = mongoose.connection;
 //used to handle multi-posts (file uploads)
