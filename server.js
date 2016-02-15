@@ -20,8 +20,10 @@ const MONGODB_URL_PREFIX = MONGODB_USER
   ? `${MONGODB_USER}:${MONGODB_PASS}@`
   : '';
 
-const MONGODB_URL = `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
 
+//mongodb://<dbuser>:<dbpassword>@ds035485.mongolab.com:35485/basic-node-server
+const MONGODB_URL = `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
+console.log('MONGODB_URL', MONGODB_URL);
 const routes = require('./routes/');
 
 
